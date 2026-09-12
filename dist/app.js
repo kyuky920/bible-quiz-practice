@@ -1,5 +1,5 @@
 
-const SESSION_SIZE = 10;
+const SESSION_SIZE = QUESTIONS.length;
 const letters = ["A", "B", "C", "D"];
 
 const state = { questions: [], index: 0, correct: 0, streak: 0, bestStreak: 0, locked: false, reviewing: false, complete: false };
@@ -34,7 +34,7 @@ function shuffle(items) {
 }
 
 function startQuiz() {
-  state.questions = shuffle(QUESTIONS).slice(0, SESSION_SIZE).map((q) => ({ ...q, choices: shuffle(q.choices) }));
+  state.questions = shuffle(QUESTIONS).map((q) => ({ ...q, choices: shuffle(q.choices) }));
   Object.assign(state, { index: 0, correct: 0, streak: 0, bestStreak: 0, locked: false, reviewing: false, complete: false });
   el.quizView.hidden = false;
   el.resultView.hidden = true;
@@ -157,7 +157,7 @@ function finishAnswer(isCorrect) {
 }
 
 function updateHeader() {
-  el.scoreLabel.textContent = state.correct * 10;
+  el.scoreLabel.textContent = Math.round(state.correct / SESSION_SIZE * 100);
   el.streakLabel.textContent = state.streak;
 }
 
@@ -173,7 +173,7 @@ function nextQuestion() {
 
 function showResults() {
   state.complete = true;
-  const score = state.correct * 10;
+  const score = Math.round(state.correct / SESSION_SIZE * 100);
   el.quizView.hidden = true;
   el.resultView.hidden = false;
   el.finalScore.textContent = score;
@@ -207,7 +207,7 @@ function registerWebMcpTools() {
   register({
     name: "start_new_bible_quiz",
     title: "새 성경 퀴즈 시작",
-    description: "문제와 보기 순서를 새로 섞어 10문제 성경 퀴즈를 시작합니다.",
+    description: "문제와 보기 순서를 새로 섞어 전체 50문제 성경 퀴즈를 시작합니다.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
     annotations: { readOnlyHint: false, untrustedContentHint: false },
     execute: () => { startQuiz(); return { status: "started", totalQuestions: SESSION_SIZE }; }

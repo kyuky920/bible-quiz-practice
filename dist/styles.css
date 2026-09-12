@@ -125,6 +125,17 @@ button { font: inherit; }
 .question-hint { margin: 0 0 26px; color: #838b9b; font-size: .9rem; }
 
 .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.short-form { display: grid; gap: 12px; }
+.short-form label { font-weight: 700; }
+.short-form textarea { width: 100%; resize: vertical; padding: 15px; font: inherit; font-size: 1rem; line-height: 1.6; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--ink); }
+.short-form textarea:focus { outline: 3px solid rgba(240,185,77,.48); }
+.short-form .primary-button { justify-self: end; }
+.feedback.reviewing { background: #edf1fa; }
+.feedback.reviewing .feedback-icon { background: var(--ink-soft); }
+.feedback.reviewing .feedback-icon::after { content: "?"; }
+.self-review { margin-top: 12px; }
+.self-review .ghost-button { margin-top: 8px; }
+.question-card .answers { grid-template-columns: 1fr; }
 .answer-button {
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr) 22px;

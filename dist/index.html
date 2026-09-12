@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#14213d" />
+    <meta
+      name="description"
+      content="문제와 보기 순서가 매번 바뀌는 성경 퀴즈 연습장"
+    />
+    <title>말씀 한 장 · 성경 퀴즈 연습</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314213d'/%3E%3Cpath d='M15 17c8-2 14 0 17 5 3-5 9-7 17-5v31c-8-2-14 0-17 5-3-5-9-7-17-5V17Z' fill='%23f6c453'/%3E%3Cpath d='M32 22v31' stroke='%2314213d' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="말씀 한 장 처음으로">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span><span></span>
+          </span>
+          <span>
+            <strong>말씀 한 장</strong>
+            <small>BIBLE QUIZ PRACTICE</small>
+          </span>
+        </a>
+        <div class="session-meta" aria-label="현재 학습 현황">
+          <span><b id="scoreLabel">0</b>점</span>
+          <span class="meta-divider" aria-hidden="true"></span>
+          <span><b id="streakLabel">0</b>연속 정답</span>
+        </div>
+      </header>
+
+      <section class="quiz-layout" id="quizView" aria-labelledby="questionTitle">
+        <aside class="progress-panel" aria-label="진행 상황">
+          <div class="eyebrow">오늘의 연습</div>
+          <div class="progress-count">
+            <strong id="currentNumber">01</strong>
+            <span>/ <b id="totalNumber">10</b></span>
+          </div>
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="퀴즈 진행률"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="10"
+          >
+            <span id="progressFill"></span>
+          </div>
+          <p id="progressText">첫 문제를 천천히 읽어보세요.</p>
+          <div class="book-stamp" aria-hidden="true">
+            <span>66</span>
+            <small>BOOKS</small>
+          </div>
+        </aside>
+
+        <article class="question-card">
+          <div class="question-head">
+            <span class="category" id="categoryLabel">구약</span>
+            <span class="shuffle-note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+              보기 순서 섞임
+            </span>
+          </div>
+
+          <h1 id="questionTitle" tabindex="-1">문제를 불러오는 중입니다.</h1>
+          <p class="question-hint">가장 알맞은 답 하나를 선택하세요.</p>
+
+          <div class="answers" id="answers" role="radiogroup" aria-label="답안 보기"></div>
+
+          <div class="feedback" id="feedback" aria-live="polite" hidden>
+            <div class="feedback-icon" id="feedbackIcon" aria-hidden="true"></div>
+            <div>
+              <strong id="feedbackTitle"></strong>
+              <p id="feedbackText"></p>
+              <span id="verseReference"></span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="ghost-button" id="restartButton" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M5.5 15a7 7 0 1 0 1.2-8.4L4 10"/></svg>
+              처음부터
+            </button>
+            <button class="primary-button" id="nextButton" type="button" disabled>
+              <span id="nextButtonText">답을 선택해 주세요</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <section class="result-card" id="resultView" hidden aria-labelledby="resultTitle">
+        <div class="result-seal" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M14 8h20v9c0 8-4 15-10 18-6-3-10-10-10-18V8Z"/><path d="M18 40h12M24 35v5M14 12H8v4c0 5 3 8 8 8M34 12h6v4c0 5-3 8-8 8"/></svg>
+        </div>
+        <div class="eyebrow">연습 완료</div>
+        <h1 id="resultTitle">말씀을 한 장 더 익혔어요.</h1>
+        <div class="final-score"><strong id="finalScore">0</strong><span>/ 100점</span></div>
+        <p id="resultMessage"></p>
+        <div class="result-stats">
+          <div><span>정답</span><strong id="correctCount">0문제</strong></div>
+          <div><span>최고 연속 정답</span><strong id="bestStreak">0문제</strong></div>
+          <div><span>풀이한 문제</span><strong id="answeredCount">10문제</strong></div>
+        </div>
+        <button class="primary-button result-button" id="retryButton" type="button">
+          새로운 문제로 다시 풀기
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M5.5 15a7 7 0 1 0 1.2-8.4L4 10"/></svg>
+        </button>
+      </section>
+
+      <footer>
+        <p>틀려도 괜찮아요. 정답보다 말씀을 기억하는 과정이 더 중요합니다.</p>
+        <span>문제와 보기 순서는 매번 새롭게 바뀝니다.</span>
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
